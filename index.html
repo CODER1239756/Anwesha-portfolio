@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anwesha Ghosh — Portfolio</title>
+<link rel="stylesheet" href="style.css">
+<style>
+/* ── HERO ── */
+.hero {
+  min-height: calc(100vh - var(--nav-h));
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: relative; overflow: hidden;
+}
+.hero-left {
+  display: flex; flex-direction: column;
+  justify-content: center;
+  padding: 80px 64px 100px 72px;
+  position: relative; z-index: 2;
+}
+.hero-eyebrow {
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 32px;
+}
+.hero-eyebrow-line { width: 40px; height: 1px; background: var(--gold); }
+.hero-eyebrow span {
+  font-size: .7rem; letter-spacing: .24em; text-transform: uppercase;
+  color: var(--gold); font-family: 'DM Sans', sans-serif;
+}
+.hero-name {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3.2rem, 5vw, 5.6rem);
+  font-weight: 900; line-height: 1.0; color: var(--ivory); margin-bottom: 8px;
+}
+.hero-name em { font-style: italic; color: var(--gold); display: block; }
+.hero-surname {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 3.5vw, 3.8rem);
+  font-weight: 300; letter-spacing: .1em;
+  color: var(--ivory-dim); display: block; margin-bottom: 28px;
+}
+.hero-typewriter {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.25rem; font-style: italic;
+  color: var(--gold-dim); height: 1.6rem; margin-bottom: 28px;
+}
+.hero-desc {
+  font-size: 1.0rem; line-height: 1.75;
+  color: var(--ivory-dim); max-width: 400px; margin-bottom: 36px;
+}
+.hero-tags { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 36px; }
+.hero-tag {
+  padding: 6px 16px;
+  border: 1px solid rgba(201,168,76,.35);
+  font-size: .68rem; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--gold-dim);
+  font-family: 'DM Sans', sans-serif;
+  transition: background .2s, color .2s;
+}
+.hero-tag:hover { background: rgba(201,168,76,.1); color: var(--gold); }
+.hero-ctas { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 0; }
+
+/* birthday countdown pill */
+.bday-pill {
+  display: inline-flex; align-items: center; gap: 10px;
+  margin-top: 28px;
+  padding: 12px 24px;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255,255,255,0.13);
+  border-radius: 50px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,.15);
+  width: fit-content;
+}
+.bday-pill .cake { font-size: 1.1rem; }
+
+/* ── HERO RIGHT ── */
+.hero-right { position: relative; overflow: hidden; }
+.hero-right-bg {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, var(--deep) 0%, rgba(201,168,76,.06) 100%);
+}
+.hero-img-grid {
+  position: absolute; inset: 0;
+  display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr;
+}
+.hero-img-grid .cell { overflow: hidden; position: relative; }
+.hero-img-grid .cell img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform .7s ease;
+  filter: brightness(.75) contrast(1.05);
+}
+.hero-img-grid .cell:hover img { transform: scale(1.06); }
+.hero-img-grid::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background:
+    linear-gradient(90deg, var(--black) 0%, transparent 15%),
+    linear-gradient(270deg, transparent 85%, rgba(8,8,8,.4) 100%);
+}
+.hero-date-badge {
+  position: absolute; bottom: 44px;
+  left: 50%; transform: translateX(-24%);
+  z-index: 10; text-align: center;
+  padding: 20px 32px;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem; font-weight: 700; color: var(--ivory);
+  background: rgba(255,255,255,0.07);
+  backdrop-filter: blur(22px) saturate(200%) brightness(1.15);
+  -webkit-backdrop-filter: blur(22px) saturate(200%) brightness(1.15);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-bottom-color: rgba(255,255,255,0.06);
+  border-right-color: rgba(255,255,255,0.06);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.45), 0 2px 8px rgba(0,0,0,0.3),
+    inset 0 1px 0 rgba(255,255,255,0.25), inset 0 -1px 0 rgba(0,0,0,0.1),
+    0 0 0 1px rgba(201,168,76,0.12);
+  border-radius: 4px;
+  background-image: linear-gradient(135deg,rgba(255,255,255,0.12) 0%,rgba(255,255,255,0.02) 40%,rgba(201,168,76,0.06) 100%);
+}
+.hero-date-badge .badge-date {
+  display: block; color: var(--gold-light); font-size: 1.2rem;
+  letter-spacing: .05em; text-shadow: 0 1px 12px rgba(201,168,76,.5);
+}
+.hero-date-badge small {
+  display: block; font-family: 'DM Sans', sans-serif;
+  font-size: .62rem; letter-spacing: .22em; text-transform: uppercase;
+  color: rgba(245,240,232,.75); font-weight: 400; margin-top: 5px;
+}
+.hero-scroll {
+  position: absolute; bottom: 32px; left: 26%;
+  transform: translateX(-50%); z-index: 6;
+}
+.hero::before {
+  content: ''; position: absolute; left: 50%; top: 15%; height: 70%;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, rgba(201,168,76,.3), transparent);
+  z-index: 1;
+}
+
+/* ── ABOUT STRIP ── */
+.about-strip {
+  background: var(--deep); padding: 80px 72px;
+  display: grid; grid-template-columns: 1fr 1.4fr;
+  gap: 80px; align-items: center;
+}
+.about-strip-img { position: relative; }
+.about-strip-img .main-photo {
+  width: 100%; aspect-ratio: 3/4; object-fit: cover; display: block;
+  filter: brightness(.9) contrast(1.05);
+}
+.about-strip-img::before {
+  content: ''; position: absolute; top: -16px; left: -16px; right: 16px; bottom: 16px;
+  border: 1px solid rgba(201,168,76,.3); z-index: 0; pointer-events: none;
+}
+.about-strip-img .main-photo { position: relative; z-index: 1; }
+.about-strip-text h2 { font-size: clamp(2rem,3vw,3.2rem); color: var(--ivory); margin-bottom: 24px; line-height: 1.15; }
+.about-strip-text p { font-size: 1.0rem; line-height: 1.8; color: var(--ivory-dim); margin-bottom: 18px; }
+.about-strip-text .quote { border-left: 2px solid var(--gold); padding-left: 20px; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.2rem; color: var(--ivory); margin: 32px 0; }
+.stats-row {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; margin: 40px 0;
+  padding: 32px 0;
+  border-top: 1px solid rgba(201,168,76,.2); border-bottom: 1px solid rgba(201,168,76,.2);
+}
+
+/* ── INTERESTS ── */
+.interests { padding: 80px 72px; }
+.interests-header { text-align: center; margin-bottom: 64px; }
+.interests-header h2 { font-size: clamp(2.2rem,3.5vw,4rem); color: var(--ivory); }
+.interests-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; }
+.interest-card {
+  background: var(--panel); padding: 52px 40px;
+  position: relative; overflow: hidden; cursor: none;
+  transition: background .3s; text-decoration: none; display: block;
+}
+.interest-card:hover { background: #1e1e1e; }
+.interest-card::before {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+  height: 2px; background: var(--gold);
+  transform: scaleX(0); transform-origin: left; transition: transform .4s ease;
+}
+.interest-card:hover::before { transform: scaleX(1); }
+.interest-icon { font-size: 2.8rem; margin-bottom: 20px; display: block; }
+.interest-card h3 { font-size: 1.5rem; color: var(--ivory); margin-bottom: 16px; }
+.interest-card p { font-size: .9rem; line-height: 1.7; color: var(--ivory-dim); }
+.interest-link {
+  display: inline-flex; align-items: center; gap: 8px; margin-top: 24px;
+  font-size: .75rem; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--gold); font-family: 'DM Sans', sans-serif;
+}
+.interest-link svg { width: 16px; transition: transform .25s; }
+.interest-card:hover .interest-link svg { transform: translateX(4px); }
+
+/* ── POLAROID (new!) ── */
+.polaroid-section { padding: 80px 72px; background: var(--panel); }
+.polaroid-section .ps-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 56px; }
+.polaroid-section .ps-header h2 { font-size: clamp(2rem,3vw,3.4rem); color: var(--ivory); }
+
+/* ── GALLERY PREVIEW ── */
+.gallery-preview { padding: 80px 72px; background: var(--deep); }
+.gallery-preview-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 48px; }
+.gallery-preview-header h2 { font-size: clamp(2rem,3vw,3.4rem); color: var(--ivory); }
+.gallery-mosaic { display: grid; grid-template-columns: repeat(4,1fr); grid-template-rows: auto; gap: 4px; }
+.gallery-mosaic .cell { overflow: hidden; position: relative; cursor: none; }
+.gallery-mosaic .cell img { width: 100%; height: 100%; object-fit: cover; display: block; filter: brightness(.8) contrast(1.05); transition: transform .5s ease, filter .3s; }
+.gallery-mosaic .cell:hover img { transform: scale(1.07); filter: brightness(.95) contrast(1.1); }
+.cell-tall { grid-row: span 2; } .cell-wide { grid-column: span 2; }
+
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; }
+  .hero-right { height: 50vh; }
+  .hero-left { padding: 48px 28px; }
+  .about-strip { grid-template-columns: 1fr; padding: 48px 28px; gap: 40px; }
+  .interests { padding: 48px 28px; }
+  .interests-grid { grid-template-columns: 1fr; }
+  .gallery-preview { padding: 48px 28px; }
+  .gallery-mosaic { grid-template-columns: repeat(2,1fr); }
+  .cell-wide { grid-column: span 1; }
+  .polaroid-section { padding: 48px 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- SPLASH SCREEN -->
+<div id="splash">
+  <div class="splash-monogram">
+    <span class="splash-letter">A</span>
+    <span class="splash-dot">.</span>
+    <span class="splash-letter">G</span>
+  </div>
+  <p class="splash-sub">Anwesha Ghosh</p>
+  <div class="splash-line"></div>
+  <div class="splash-bar"><div class="splash-bar-fill"></div></div>
+</div>
+
+<!-- SCROLL PROGRESS -->
+<div id="scroll-progress"></div>
+
+<!-- PAGE TRANSITION -->
+<div id="page-transition"></div>
+
+<div class="cursor-dot"></div>
+<div class="cursor-ring"></div>
+
+<!-- FLOATING SOCIAL -->
+<div class="social-float">
+  <a href="https://www.instagram.com/itz.anwesha3103" target="_blank" title="Instagram">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+  </a>
+  <a href="sports.html" title="Sports"></a>
+  <a href="gallery.html" title="Gallery"></a>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">A.G</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="sports.html">Sports</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="connect.html">Connect</a></li>
+  </ul>
+  <a href="https://www.instagram.com/itz.anwesha3103" target="_blank" class="nav-insta">@itz.anwesha3103</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero page">
+  <div class="hero-left">
+    <div class="hero-eyebrow fade-up d1">
+      <div class="hero-eyebrow-line"></div>
+      <span>Portfolio · 2025</span>
+    </div>
+
+    <h1 class="hero-name fade-up d2"><em>Anwesha</em></h1>
+    <span class="hero-surname fade-up d3">Ghosh</span>
+
+    <!-- TYPEWRITER -->
+    <div class="hero-typewriter fade-up d3">
+      <span id="typewriter" data-words='["Athlete. Fighter. Champion.","Friend you never forget.","The loudest laugh in the room.","Badminton. Football. Legend.","Born 31 March · Purely golden."]'></span>
+    </div>
+
+    <p class="hero-desc fade-up d4">
+      From the badminton court to the football ground, and every gossip session in between — 
+      Anwesha finds the poetry in ordinary moments.
+    </p>
+
+    <div class="hero-tags fade-up d4">
+      <span class="hero-tag">Badminton</span>
+      <span class="hero-tag">Football</span>
+      <span class="hero-tag">March 31st</span>
+      <span class="hero-tag">16 Years</span>
+    </div>
+
+    <div class="hero-ctas fade-up d5">
+      <a href="about.html" class="btn btn-fill">Meet Anwesha</a>
+      <a href="gallery.html" class="btn">View Gallery</a>
+    </div>
+
+    <!-- BIRTHDAY COUNTDOWN -->
+    <div class="bday-pill fade-up d5">
+      
+      <div id="bday-countdown">
+        <span class="cd-num">—</span>
+        <span class="cd-label">calculating...</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right" data-parallax="-0.12">
+    <div class="hero-right-bg"></div>
+    <div class="hero-img-grid">
+      <div class="cell"><img src="images/img4.jpg" alt="Anwesha"></div>
+      <div class="cell"><img src="images/img9.jpg" alt="Anwesha"></div>
+      <div class="cell"><img src="images/img7.jpg" alt="Anwesha"></div>
+      <div class="cell"><img src="images/img3.jpg" alt="Anwesha"></div>
+    </div>
+    <div class="hero-date-badge">
+      <span class="badge-date">31 March</span>
+      <small>Born to shine </small>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="scroll-hint">
+      <span>Scroll</span>
+      <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span>Anwesha Ghosh</span><span class="dot"></span>
+    <span>Badminton</span><span class="dot"></span>
+    <span>Football</span><span class="dot"></span>
+    <span>March 31st</span><span class="dot"></span>
+    <span>Kind Soul</span><span class="dot"></span>
+    <span>Fierce Heart</span><span class="dot"></span>
+    <span>Loyal Friend</span><span class="dot"></span>
+    <span>@itz.anwesha3103</span><span class="dot"></span>
+    <span>Anwesha Ghosh</span><span class="dot"></span>
+    <span>Badminton</span><span class="dot"></span>
+    <span>Football</span><span class="dot"></span>
+    <span>March 31st</span><span class="dot"></span>
+    <span>Kind Soul</span><span class="dot"></span>
+    <span>Fierce Heart</span><span class="dot"></span>
+    <span>Loyal Friend</span><span class="dot"></span>
+    <span>@itz.anwesha3103</span><span class="dot"></span>
+  </div>
+</div>
+
+<!-- ABOUT STRIP -->
+<section class="about-strip reveal">
+  <div class="about-strip-img tilt-card">
+    <img class="main-photo" src="images/img2.jpg" alt="Anwesha">
+  </div>
+  <div class="about-strip-text">
+    <span class="section-tag">About Her</span>
+    <h2>Kind soul, <em class="gold-text italic-text">fierce heart</em></h2>
+    <p>Anwesha Ghosh is 16 years old — an athlete with a contagious laugh, a loyal friend, and someone who lights up every room she walks into.</p>
+    <div class="quote">"She doesn't just play the game — she changes the whole energy of it."</div>
+    <p>Whether she's smashing shuttles on the badminton court, running circles on the football ground, or holding court in a gossip session — Anwesha brings her whole self to everything she does.</p>
+
+    <div class="stats-row">
+      <div class="stat-item">
+        <span class="stat-number" data-count="16">0</span>
+        <span class="stat-label">Years Young</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number" data-count="2">0</span>
+        <span class="stat-label">Sports Loved</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number" data-count="inf">∞</span>
+        <span class="stat-label">Stories Told</span>
+      </div>
+    </div>
+    <a href="about.html" class="btn">Read Her Story →</a>
+  </div>
+</section>
+
+<!-- INTERESTS -->
+<section class="interests">
+  <div class="interests-header reveal">
+    <span class="section-tag">Passions</span>
+    <h2>Three worlds, <em class="gold-text italic-text">one person</em></h2>
+  </div>
+  <div class="interests-grid">
+    <a href="sports.html" class="interest-card tilt-card reveal">
+      <span class="interest-icon">Badminton</span>
+      <h3>Badminton</h3>
+      <p>Fast reflexes, sharp focus, and a smash that echoes — on the court, she plays like she means it.</p>
+      <span class="interest-link">Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+    </a>
+    <a href="sports.html" class="interest-card tilt-card reveal">
+      <span class="interest-icon">Badminton</span>
+      <h3>Football</h3>
+      <p>The pitch is her canvas. She dribbles, she scores, and she does it all with unmatched fire.</p>
+      <span class="interest-link">Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+    </a>
+    <a href="gallery.html" class="interest-card tilt-card reveal">
+      <span class="interest-icon">Badminton</span>
+      <h3>Being Herself</h3>
+      <p>The best gossip, the warmest hugs, and a smile that makes everyone feel at ease.</p>
+      <span class="interest-link">Gallery <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+    </a>
+  </div>
+</section>
+
+<!-- POLAROID WALL (NEW!) -->
+<section class="polaroid-section reveal">
+  <div class="ps-header">
+    <div>
+      <span class="section-tag">Candid Moments</span>
+      <h2>A wall of <em class="gold-text italic-text">memories</em></h2>
+    </div>
+    <a href="gallery.html" class="btn">Full Gallery →</a>
+  </div>
+  <div class="polaroid-wall">
+    <div class="polaroid tilt-card">
+      <img src="images/img1.jpg" alt="">
+      <span class="polaroid-caption">road trip soul</span>
+    </div>
+    <div class="polaroid tilt-card">
+      <img src="images/img4.jpg" alt="">
+      <span class="polaroid-caption">wholly herself</span>
+    </div>
+    <div class="polaroid tilt-card">
+      <img src="images/img6.jpg" alt="">
+      <span class="polaroid-caption">the hero she is</span>
+    </div>
+    <div class="polaroid tilt-card">
+      <img src="images/img5.jpg" alt="">
+      <span class="polaroid-caption">dressed in gold</span>
+    </div>
+    <div class="polaroid tilt-card">
+      <img src="images/img3.jpg" alt="">
+      <span class="polaroid-caption">mirror, mirror</span>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-name">Anwesha Ghosh</span>
+  <span class="footer-meta">Portfolio · 2025 · Made with love</span>
+  <a href="https://www.instagram.com/itz.anwesha3103" target="_blank">@itz.anwesha3103</a>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

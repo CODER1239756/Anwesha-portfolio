@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sports — Anwesha Ghosh</title>
+<link rel="stylesheet" href="style.css">
+<style>
+/* ── SPORTS HERO — full bleed editorial ── */
+.sports-hero {
+  height: 100vh; position: relative; overflow: hidden;
+  display: flex; align-items: flex-end;
+}
+.sh-bg {
+  position: absolute; inset: 0;
+  background-image: url('images/img8.jpg');
+  background-size: cover; background-position: center 20%;
+  filter: brightness(.25) contrast(1.15) saturate(.5);
+  transform: scale(1.05);
+  transition: transform 8s ease;
+}
+.sports-hero:hover .sh-bg { transform: scale(1.0); }
+.sh-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(0deg, var(--black) 0%, rgba(8,8,8,.3) 60%, transparent 100%),
+              linear-gradient(90deg, rgba(8,8,8,.7) 0%, transparent 50%);
+}
+.sh-content {
+  position: relative; z-index: 2;
+  padding: 0 72px 80px;
+  max-width: 700px;
+}
+.sh-content .sports-index {
+  font-family: 'Playfair Display', serif;
+  font-size: 28vw; font-weight: 900;
+  color: rgba(201,168,76,.04);
+  position: absolute; right: 0; bottom: 20px;
+  line-height: 1; pointer-events: none;
+}
+.sh-content h1 {
+  font-size: clamp(3.5rem, 7vw, 8rem);
+  color: var(--ivory); font-weight: 900;
+  line-height: .95; margin-bottom: 24px;
+}
+.sh-content h1 em { color: var(--gold); font-style: italic; }
+.sh-content p {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-size: 1.3rem;
+  color: var(--ivory-dim); max-width: 500px; line-height: 1.6;
+}
+.sh-scroll-hint {
+  position: absolute; right: 72px; bottom: 80px;
+  writing-mode: vertical-rl; text-orientation: mixed;
+  font-size: .65rem; letter-spacing: .24em;
+  text-transform: uppercase; color: var(--gold-dim);
+  display: flex; flex-direction: row; align-items: center; gap: 16px;
+}
+.sh-scroll-hint::after {
+  content: ''; width: 1px; height: 60px;
+  background: linear-gradient(180deg, var(--gold-dim), transparent);
+  display: block;
+}
+
+/* ── SPORT SPLIT SECTIONS ── */
+.sport-split {
+  display: grid; grid-template-columns: 1fr 1fr;
+  min-height: 80vh;
+}
+.sport-split.reverse { direction: rtl; }
+.sport-split.reverse > * { direction: ltr; }
+
+.ss-visual { position: relative; overflow: hidden; }
+.ss-visual img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  filter: brightness(.65) contrast(1.1) saturate(.8);
+  transition: transform .8s ease, filter .4s;
+}
+.ss-visual:hover img { transform: scale(1.04); filter: brightness(.8) contrast(1.1) saturate(.95); }
+
+/* Big number watermark on photo */
+.ss-num-bg {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  pointer-events: none;
+  font-family: 'Playfair Display', serif;
+  font-size: 40vw; font-weight: 900;
+  color: rgba(255,255,255,.04); line-height: 1;
+  user-select: none;
+}
+.ss-badge {
+  position: absolute; top: 40px; right: 40px;
+  padding: 18px 24px; text-align: center;
+  background: rgba(255,255,255,.06);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 4px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.2);
+}
+.ss-badge-sport {
+  display: block; font-family: 'Playfair Display', serif;
+  font-size: 1.1rem; color: var(--gold); margin-bottom: 4px;
+}
+.ss-badge-label {
+  display: block; font-size: .62rem; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--ivory-dim);
+}
+
+.ss-text {
+  background: var(--deep);
+  padding: 80px 72px;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.ss-sport-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 7rem; font-weight: 900;
+  color: rgba(201,168,76,.07); line-height: 1;
+  display: block; margin-bottom: -28px;
+}
+.ss-text h2 {
+  font-size: clamp(2rem, 3vw, 3.4rem);
+  color: var(--ivory); margin-bottom: 24px;
+  position: relative; z-index: 1;
+}
+.ss-text p {
+  font-size: 1.0rem; line-height: 1.85;
+  color: var(--ivory-dim); margin-bottom: 20px;
+}
+
+/* Skill bars — more dramatic */
+.skills { margin: 40px 0; }
+.skill { margin-bottom: 24px; }
+.skill-top {
+  display: flex; justify-content: space-between;
+  align-items: baseline; margin-bottom: 10px;
+}
+.skill-name {
+  font-size: .72rem; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--ivory);
+  font-family: 'DM Sans', sans-serif;
+}
+.skill-pct {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem; color: var(--gold);
+}
+.skill-track {
+  height: 4px; background: rgba(255,255,255,.06);
+  position: relative; overflow: hidden; border-radius: 2px;
+}
+.skill-fill {
+  position: absolute; left: 0; top: 0; height: 100%;
+  background: linear-gradient(90deg, var(--gold-dim), var(--gold-light));
+  border-radius: 2px;
+  width: 0; transition: width 1.4s cubic-bezier(.16,1,.3,1);
+}
+.skill-fill.animate { width: var(--w); }
+
+/* ── DUAL PHOTO ROW ── */
+.dual-photo {
+  display: grid; grid-template-columns: 1.3fr 1fr; gap: 3px;
+  background: var(--black);
+}
+.dp-item { position: relative; overflow: hidden; }
+.dp-item img {
+  width: 100%; height: 380px; object-fit: cover; display: block;
+  filter: brightness(.65) contrast(1.1) saturate(.75);
+  transition: transform .6s, filter .3s;
+}
+.dp-item:hover img { transform: scale(1.05); filter: brightness(.85) contrast(1.1) saturate(.95); }
+.dp-caption {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 32px 28px 24px;
+  background: linear-gradient(0deg, rgba(8,8,8,.9) 0%, transparent 100%);
+  font-family: 'Playfair Display', serif;
+  font-style: italic; font-size: 1.1rem; color: var(--ivory);
+}
+.dp-caption span { display: block; font-family: 'DM Sans', sans-serif; font-size: .68rem; letter-spacing: .18em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 6px; }
+
+/* ── MINDSET SECTION ── */
+.mindset {
+  padding: 100px 72px;
+  background: var(--panel);
+  position: relative; overflow: hidden;
+}
+.mindset::before {
+  content: '"';
+  position: absolute; top: -60px; left: 32px;
+  font-family: 'Playfair Display', serif;
+  font-size: 36rem; font-weight: 900;
+  color: rgba(201,168,76,.03); line-height: 1; pointer-events: none;
+}
+.mindset h2 {
+  font-size: clamp(2rem, 3vw, 3.2rem);
+  color: var(--ivory); margin-bottom: 64px;
+  position: relative; z-index: 1;
+}
+.mindset-grid {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 2px;
+  position: relative; z-index: 1;
+}
+.mindset-card {
+  background: var(--deep); padding: 44px 32px;
+  position: relative; overflow: hidden;
+  transition: background .3s;
+}
+.mindset-card:hover { background: #1a1a1a; }
+.mindset-card::after {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 2px; background: var(--gold);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .4s ease;
+}
+.mindset-card:hover::after { transform: scaleX(1); }
+.mc-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5rem; font-weight: 900;
+  color: rgba(201,168,76,.12); line-height: 1;
+  margin-bottom: 20px; display: block;
+  transition: color .3s;
+}
+.mindset-card:hover .mc-num { color: rgba(201,168,76,.28); }
+.mindset-card h3 { font-size: 1.1rem; color: var(--ivory); margin-bottom: 12px; }
+.mindset-card p { font-size: .88rem; line-height: 1.65; color: var(--ivory-dim); }
+
+@media (max-width: 900px) {
+  .sh-content { padding: 0 24px 60px; }
+  .sport-split { grid-template-columns: 1fr; }
+  .sport-split.reverse { direction: ltr; }
+  .ss-visual { height: 50vh; }
+  .ss-text { padding: 48px 24px; }
+  .dual-photo { grid-template-columns: 1fr; }
+  .mindset { padding: 60px 24px; }
+  .mindset-grid { grid-template-columns: 1fr; }
+  .sh-scroll-hint { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div id="scroll-progress"></div>
+<div id="page-transition"></div>
+<div class="social-float">
+  <a href="https://www.instagram.com/itz.anwesha3103" target="_blank">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+  </a>
+</div>
+
+<div class="cursor-dot"></div>
+<div class="cursor-ring"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">A.G</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="sports.html">Sports</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="connect.html">Connect</a></li>
+  </ul>
+  <a href="https://www.instagram.com/itz.anwesha3103" target="_blank" class="nav-insta">@itz.anwesha3103</a>
+</nav>
+
+<!-- FULL BLEED HERO -->
+<section class="sports-hero page">
+  <div class="sh-bg"></div>
+  <div class="sh-overlay"></div>
+  <div class="sh-content">
+    <span class="sports-index">AG</span>
+    <span class="section-tag fade-up d1">Athletics</span>
+    <h1 class="fade-up d2">She plays<br><em>to win.</em></h1>
+    <p class="fade-up d3">Badminton. Football. Two courts, one fire. She does not step on — she takes over.</p>
+  </div>
+  <div class="sh-scroll-hint">Scroll</div>
+</section>
+
+<!-- BADMINTON -->
+<section class="sport-split reveal">
+  <div class="ss-visual">
+    <img src="images/img7.jpg" alt="Anwesha — Badminton">
+    <div class="ss-num-bg">1</div>
+    <div class="ss-badge">
+      <span class="ss-badge-sport">Badminton</span>
+      <span class="ss-badge-label">Sport One</span>
+    </div>
+  </div>
+  <div class="ss-text">
+    <span class="ss-sport-num">01</span>
+    <span class="section-tag">First Love</span>
+    <h2>Badminton — <em class="gold-text italic-text">her first language</em></h2>
+    <p>The shuttle barely has time to rise before Anwesha is already positioning for the smash. Her game is fast, calculated, and absolutely relentless.</p>
+    <p>What makes her stand out is not just the power — it is the anticipation. She reads the court like a sentence, already knowing the next word before it is written.</p>
+    <div class="skills" data-skills>
+      <div class="skill">
+        <div class="skill-top"><span class="skill-name">Speed and Agility</span><span class="skill-pct">95</span></div>
+        <div class="skill-track"><div class="skill-fill" style="--w:95%"></div></div>
+      </div>
+      <div class="skill">
+        <div class="skill-top"><span class="skill-name">Smash Power</span><span class="skill-pct">88</span></div>
+        <div class="skill-track"><div class="skill-fill" style="--w:88%"></div></div>
+      </div>
+      <div class="skill">
+        <div class="skill-top"><span class="skill-name">Court Sense</span><span class="skill-pct">93</span></div>
+        <div class="skill-track"><div class="skill-fill" style="--w:93%"></div></div>
+      </div>
+    </div>
+    <a href="gallery.html" class="btn">See Gallery</a>
+  </div>
+</section>
+
+<!-- FOOTBALL -->
+<section class="sport-split reverse reveal">
+  <div class="ss-visual">
+    <img src="images/img3.jpg" alt="Anwesha — Football">
+    <div class="ss-num-bg">2</div>
+    <div class="ss-badge">
+      <span class="ss-badge-sport">Football</span>
+      <span class="ss-badge-label">Sport Two</span>
+    </div>
+  </div>
+  <div class="ss-text">
+    <span class="ss-sport-num">02</span>
+    <span class="section-tag">The Pitch</span>
+    <h2>Football — <em class="gold-text italic-text">the pitch is hers</em></h2>
+    <p>On the football ground, Anwesha does not ask for space — she creates it. Her dribbling is fluid, her passing sharp, and her presence commands attention from every player on the pitch.</p>
+    <p>She plays with the kind of conviction that makes teammates believe in themselves too. The energy she brings does not just win games — it builds teams.</p>
+    <div class="skills" data-skills>
+      <div class="skill">
+        <div class="skill-top"><span class="skill-name">Dribbling</span><span class="skill-pct">90</span></div>
+        <div class="skill-track"><div class="skill-fill" style="--w:90%"></div></div>
+      </div>
+      <div class="skill">
+        <div class="skill-top"><span class="skill-name">Teamwork</span><span class="skill-pct">97</span></div>
+        <div class="skill-track"><div class="skill-fill" style="--w:97%"></div></div>
+      </div>
+      <div class="skill">
+        <div class="skill-top"><span class="skill-name">Field Vision</span><span class="skill-pct">85</span></div>
+        <div class="skill-track"><div class="skill-fill" style="--w:85%"></div></div>
+      </div>
+    </div>
+    <a href="gallery.html" class="btn">See Gallery</a>
+  </div>
+</section>
+
+<!-- DUAL PHOTO -->
+<div class="dual-photo reveal">
+  <div class="dp-item">
+    <img src="images/img9.jpg" alt="">
+    <div class="dp-caption"><span>The Athlete</span>Always in motion, always composed</div>
+  </div>
+  <div class="dp-item">
+    <img src="images/img6.jpg" alt="">
+    <div class="dp-caption"><span>Off the Court</span>Just as iconic</div>
+  </div>
+</div>
+
+<!-- MINDSET -->
+<section class="mindset">
+  <span class="section-tag">The Athlete's Mind</span>
+  <h2>What makes her <em class="gold-text italic-text">unstoppable</em></h2>
+  <div class="mindset-grid">
+    <div class="mindset-card tilt-card reveal">
+      <span class="mc-num">01</span>
+      <h3>Explosive Reflexes</h3>
+      <p>Whether intercepting a pass or returning a drop shot, her body reacts before the mind has to think.</p>
+    </div>
+    <div class="mindset-card tilt-card reveal">
+      <span class="mc-num">02</span>
+      <h3>Strategic Mind</h3>
+      <p>She does not just react — she anticipates. Two moves ahead, always reading the situation before it unfolds.</p>
+    </div>
+    <div class="mindset-card tilt-card reveal">
+      <span class="mc-num">03</span>
+      <h3>Pure Passion</h3>
+      <p>You can teach technique but not this — the fire that keeps her going even when it is hard.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-name">Anwesha Ghosh</span>
+  <span class="footer-meta">Portfolio · 2025 · Made with lovelove</span>
+  <a href="https://www.instagram.com/itz.anwesha3103" target="_blank">@itz.anwesha3103</a>
+</footer>
+
+<script src="script.js"></script>
+<script>
+// Animate skill bars on scroll
+const skillSections = document.querySelectorAll('[data-skills]');
+const skillObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.skill-fill').forEach((f, i) => {
+        setTimeout(() => f.classList.add('animate'), i * 150);
+      });
+      skillObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.3 });
+skillSections.forEach(s => skillObs.observe(s));
+</script>
+</body>
+</html>

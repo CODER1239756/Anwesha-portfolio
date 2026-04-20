@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Anwesha Ghosh</title>
+<link rel="stylesheet" href="style.css">
+<style>
+/* ── CINEMATIC HERO ── */
+.about-hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: relative; overflow: hidden;
+}
+.ah-left {
+  background: var(--black);
+  display: flex; flex-direction: column;
+  justify-content: center;
+  padding: 120px 72px 80px;
+  position: relative; z-index: 2;
+}
+.ah-index {
+  font-family: 'Playfair Display', serif;
+  font-size: 9rem; font-weight: 900;
+  color: rgba(201,168,76,.07);
+  line-height: 1; position: absolute;
+  top: 48px; left: 56px;
+  user-select: none; pointer-events: none;
+}
+.ah-left h1 {
+  font-size: clamp(3rem, 5vw, 6.5rem);
+  color: var(--ivory); line-height: 1.0;
+  position: relative; z-index: 1;
+}
+.ah-left h1 em { color: var(--gold); font-style: italic; display: block; }
+.ah-left .intro-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.25rem; font-style: italic;
+  color: var(--ivory-dim); line-height: 1.7;
+  max-width: 420px; margin-top: 28px;
+}
+.ah-tags {
+  display: flex; flex-wrap: wrap; gap: 8px; margin-top: 40px;
+}
+.ah-tag {
+  padding: 7px 18px;
+  border: 1px solid rgba(201,168,76,.3);
+  font-size: .68rem; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--gold-dim);
+  font-family: 'DM Sans', sans-serif;
+  transition: all .25s;
+}
+.ah-tag:hover { background: rgba(201,168,76,.08); color: var(--gold); border-color: var(--gold); }
+
+.ah-right {
+  position: relative; overflow: hidden;
+}
+.ah-photo-stack {
+  position: absolute; inset: 0;
+  display: grid;
+  grid-template-rows: 55% 45%;
+}
+.ah-photo-stack .ph {
+  overflow: hidden; position: relative;
+}
+.ah-photo-stack .ph img {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+  filter: brightness(.7) contrast(1.08) saturate(.85);
+  transition: transform .8s ease;
+}
+.ah-photo-stack .ph:hover img { transform: scale(1.04); }
+.ah-photo-stack::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(90deg, var(--black) 0%, transparent 20%);
+}
+/* gold divider line between photos */
+.ah-photo-stack .ph-divider {
+  position: absolute; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,168,76,.4), transparent);
+  top: 55%; z-index: 5; pointer-events: none;
+}
+
+/* scroll cue */
+.ah-scroll {
+  position: absolute; bottom: 36px; left: 72px;
+  display: flex; align-items: center; gap: 14px;
+  opacity: .5;
+}
+.ah-scroll-line { width: 40px; height: 1px; background: var(--gold); }
+.ah-scroll span { font-size: .64rem; letter-spacing: .24em; text-transform: uppercase; color: var(--gold); }
+
+/* ── BIG QUOTE ── */
+.big-quote {
+  padding: 100px 72px;
+  background: var(--black);
+  position: relative; overflow: hidden;
+}
+.big-quote::before {
+  content: '"';
+  position: absolute; top: -40px; left: 40px;
+  font-family: 'Playfair Display', serif;
+  font-size: 28rem; font-weight: 900;
+  color: rgba(201,168,76,.04);
+  line-height: 1; pointer-events: none;
+}
+.big-quote blockquote {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 3.5vw, 3.5rem);
+  font-style: italic; font-weight: 400;
+  color: var(--ivory);
+  max-width: 840px; line-height: 1.4;
+  position: relative; z-index: 1;
+}
+.big-quote blockquote em { color: var(--gold); }
+.big-quote cite {
+  display: block; margin-top: 28px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: .72rem; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--gold-dim);
+  font-style: normal;
+}
+
+/* ── WHO SHE IS ── */
+.who {
+  display: grid; grid-template-columns: 1fr 1.1fr;
+  min-height: 80vh;
+}
+.who-visual {
+  position: relative; overflow: hidden;
+}
+.who-visual img {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+  filter: brightness(.72) contrast(1.1) saturate(.8);
+}
+.who-visual::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent 70%, var(--deep) 100%);
+}
+/* Overlay stat badge on photo */
+.who-photo-badge {
+  position: absolute; bottom: 40px; left: 40px;
+  background: rgba(255,255,255,.06);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 4px; padding: 20px 28px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.2);
+}
+.who-photo-badge .wbnum {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.8rem; font-weight: 900;
+  color: var(--gold); display: block; line-height: 1;
+}
+.who-photo-badge .wblabel {
+  font-size: .66rem; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--ivory-dim);
+  display: block; margin-top: 4px;
+}
+
+.who-text {
+  background: var(--deep);
+  padding: 80px 72px;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.who-text h2 {
+  font-size: clamp(2rem, 2.8vw, 3.2rem);
+  color: var(--ivory); margin-bottom: 28px;
+}
+.who-text p {
+  font-size: 1.0rem; line-height: 1.85;
+  color: var(--ivory-dim); margin-bottom: 18px;
+}
+.who-text .callout {
+  border-left: 3px solid var(--gold);
+  padding: 20px 24px;
+  background: rgba(201,168,76,.05);
+  margin: 28px 0;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-size: 1.2rem;
+  color: var(--ivory); line-height: 1.5;
+}
+
+/* ── TRAITS — new vibrant grid ── */
+.traits-section {
+  padding: 100px 72px;
+  background: var(--black);
+}
+.traits-section h2 {
+  font-size: clamp(2rem, 3vw, 3.6rem);
+  color: var(--ivory); margin-bottom: 64px;
+  text-align: center;
+}
+.traits-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+}
+.trait-block {
+  background: var(--panel);
+  padding: 48px 32px;
+  position: relative; overflow: hidden;
+  transition: background .3s;
+}
+.trait-block:hover { background: #1c1c1c; }
+.trait-block::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(201,168,76,.06) 0%, transparent 70%);
+  opacity: 0; transition: opacity .3s;
+}
+.trait-block:hover::before { opacity: 1; }
+.trait-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 4rem; font-weight: 900;
+  color: rgba(201,168,76,.1); line-height: 1;
+  display: block; margin-bottom: 20px;
+  transition: color .3s;
+}
+.trait-block:hover .trait-num { color: rgba(201,168,76,.25); }
+.trait-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.25rem; color: var(--ivory);
+  margin-bottom: 12px; display: block;
+}
+.trait-desc { font-size: .88rem; line-height: 1.65; color: var(--ivory-dim); }
+.trait-bar {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 2px; background: var(--gold);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .5s ease;
+}
+.trait-block:hover .trait-bar { transform: scaleX(1); }
+
+/* ── FACTS — vibrant ── */
+.facts-section {
+  padding: 0;
+  display: grid; grid-template-columns: repeat(4, 1fr);
+}
+.fact-tile {
+  padding: 64px 40px;
+  position: relative; overflow: hidden;
+  border-right: 1px solid rgba(201,168,76,.1);
+}
+.fact-tile:last-child { border-right: none; }
+.fact-tile:nth-child(odd) { background: var(--deep); }
+.fact-tile:nth-child(even) { background: var(--black); }
+.fact-tile::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 0;
+  background: linear-gradient(0deg, rgba(201,168,76,.08) 0%, transparent 100%);
+  transition: height .4s;
+}
+.fact-tile:hover::after { height: 100%; }
+.fact-tile .fn {
+  font-family: 'Playfair Display', serif;
+  font-size: 5rem; font-weight: 900;
+  color: var(--gold); line-height: 1;
+  display: block; margin-bottom: 12px;
+  position: relative; z-index: 1;
+}
+.fact-tile h4 {
+  font-size: .72rem; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--ivory);
+  margin-bottom: 10px; font-family: 'DM Sans', sans-serif;
+  font-weight: 400; position: relative; z-index: 1;
+}
+.fact-tile p { font-size: .82rem; line-height: 1.6; color: var(--ivory-dim); position: relative; z-index: 1; }
+
+/* ── TIMELINE ── */
+.timeline {
+  padding: 100px 72px;
+  background: var(--deep);
+}
+.timeline h2 {
+  font-size: clamp(2rem, 3vw, 3.4rem);
+  color: var(--ivory); margin-bottom: 72px;
+}
+.tl-items { position: relative; padding-left: 48px; max-width: 720px; }
+.tl-items::before {
+  content: ''; position: absolute; left: 0; top: 8px; bottom: 0;
+  width: 1px;
+  background: linear-gradient(180deg, var(--gold), rgba(201,168,76,.1));
+}
+.tl-item {
+  position: relative; margin-bottom: 56px;
+  transition: transform .3s;
+}
+.tl-item:hover { transform: translateX(6px); }
+.tl-item::before {
+  content: ''; position: absolute; left: -55px; top: 8px;
+  width: 14px; height: 14px;
+  border: 2px solid var(--gold); background: var(--black);
+  border-radius: 50%;
+  transition: background .3s, box-shadow .3s;
+}
+.tl-item:hover::before { background: var(--gold); box-shadow: 0 0 16px rgba(201,168,76,.5); }
+.tl-date {
+  font-size: .7rem; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--gold); font-family: 'DM Sans', sans-serif;
+  margin-bottom: 8px; display: block;
+}
+.tl-item h3 { font-size: 1.35rem; color: var(--ivory); margin-bottom: 10px; }
+.tl-item p { font-size: .9rem; line-height: 1.75; color: var(--ivory-dim); max-width: 540px; }
+
+/* ── PHOTO STRIP ── */
+.about-photo-strip {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px;
+}
+.aps-item { overflow: hidden; aspect-ratio: 4/5; position: relative; }
+.aps-item img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  filter: brightness(.72) contrast(1.08) saturate(.85);
+  transition: transform .6s, filter .3s;
+}
+.aps-item:hover img { transform: scale(1.06); filter: brightness(.9) contrast(1.1) saturate(1); }
+.aps-item .aps-caption {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 24px 20px 16px;
+  background: linear-gradient(0deg, rgba(8,8,8,.85) 0%, transparent 100%);
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-size: .95rem; color: var(--ivory-dim);
+  opacity: 0; transition: opacity .3s;
+}
+.aps-item:hover .aps-caption { opacity: 1; }
+
+@media (max-width: 900px) {
+  .about-hero { grid-template-columns: 1fr; }
+  .ah-right { height: 50vh; }
+  .ah-left { padding: 80px 24px 48px; }
+  .big-quote { padding: 60px 24px; }
+  .who { grid-template-columns: 1fr; }
+  .who-text { padding: 48px 24px; }
+  .traits-section { padding: 60px 24px; }
+  .traits-grid { grid-template-columns: repeat(2,1fr); }
+  .facts-section { grid-template-columns: repeat(2,1fr); }
+  .timeline { padding: 60px 24px; }
+  .about-photo-strip { grid-template-columns: repeat(2,1fr); }
+}
+</style>
+</head>
+<body>
+
+<div id="scroll-progress"></div>
+<div id="page-transition"></div>
+<div class="social-float">
+  <a href="https://www.instagram.com/itz.anwesha3103" target="_blank">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+  </a>
+  <a href="sports.html" style="font-family:serif;font-size:.85rem;color:var(--ivory-dim);">S</a>
+  <a href="gallery.html" style="font-family:serif;font-size:.85rem;color:var(--ivory-dim);">G</a>
+</div>
+
+<div class="cursor-dot"></div>
+<div class="cursor-ring"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">A.G</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="sports.html">Sports</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="connect.html">Connect</a></li>
+  </ul>
+  <a href="https://www.instagram.com/itz.anwesha3103" target="_blank" class="nav-insta">@itz.anwesha3103</a>
+</nav>
+
+<!-- CINEMATIC HERO -->
+<section class="about-hero page">
+  <div class="ah-left">
+    <span class="ah-index">AG</span>
+    <span class="section-tag fade-up d1">About Her</span>
+    <h1 class="fade-up d2">
+      Anwesha<br>
+      <em>Ghosh</em>
+    </h1>
+    <p class="intro-text fade-up d3">
+      Athlete. Confidante. The kind of person who makes every room feel warmer 
+      just by walking into it.
+    </p>
+    <div class="ah-tags fade-up d4">
+      <span class="ah-tag">Badminton</span>
+      <span class="ah-tag">Football</span>
+      <span class="ah-tag">March 31st</span>
+      <span class="ah-tag">16 Years</span>
+      <span class="ah-tag">Loyal</span>
+      <span class="ah-tag">Fierce</span>
+    </div>
+  </div>
+  <div class="ah-right">
+    <div class="ah-photo-stack">
+      <div class="ph"><img src="images/img7.jpg" alt="Anwesha" data-parallax="0.12"></div>
+      <div class="ph-divider"></div>
+      <div class="ph"><img src="images/img4.jpg" alt="Anwesha"></div>
+    </div>
+  </div>
+  <div class="ah-scroll">
+    <div class="ah-scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- BIG QUOTE -->
+<section class="big-quote">
+  <blockquote>
+    "She doesn't just play the game — she changes the whole <em>energy</em> of it."
+    <cite>— On and off every court she has ever stepped onto</cite>
+  </blockquote>
+</section>
+
+<!-- WHO SHE IS -->
+<section class="who reveal">
+  <div class="who-visual">
+    <img src="images/img2.jpg" alt="Anwesha">
+    <div class="who-photo-badge">
+      <span class="wbnum" data-count="16">0</span>
+      <span class="wblabel">Years Young</span>
+    </div>
+  </div>
+  <div class="who-text">
+    <span class="section-tag">Who She Is</span>
+    <h2>More than just <em class="gold-text">a player</em></h2>
+    <p>
+      Born on the 31st of March, Anwesha Ghosh arrived at the very edge of every season — 
+      and she has been that kind of person ever since. Someone who exists at the intersection 
+      of things: fierce and gentle, playful and determined, quiet and then suddenly the loudest 
+      laugh in the room.
+    </p>
+    <div class="callout">
+      "She doesn't do anything halfway. When she loves, she loves completely. 
+      When she plays, she plays like it's everything."
+    </div>
+    <p>
+      At 16, she has already built something that most people spend years trying to find: 
+      a presence. Recognisable. Unmistakable. Wholly her own.
+    </p>
+    <a href="sports.html" class="btn" style="margin-top:24px;">See Her in Action</a>
+  </div>
+</section>
+
+<!-- TRAITS GRID -->
+<section class="traits-section">
+  <span class="section-tag" style="text-align:center;display:block;margin-bottom:16px;">Character</span>
+  <h2>What makes her <em class="gold-text italic-text">unforgettable</em></h2>
+  <div class="traits-grid">
+    <div class="trait-block tilt-card reveal">
+      <span class="trait-num">01</span>
+      <span class="trait-name">Kind</span>
+      <p class="trait-desc">She gives warmth freely, without keeping score. The kind of kindness that feels like sunlight.</p>
+      <div class="trait-bar"></div>
+    </div>
+    <div class="trait-block tilt-card reveal">
+      <span class="trait-num">02</span>
+      <span class="trait-name">Fierce</span>
+      <p class="trait-desc">On the court there is a fire in her that does not dim. Not when it is hard. Not when it counts most.</p>
+      <div class="trait-bar"></div>
+    </div>
+    <div class="trait-block tilt-card reveal">
+      <span class="trait-num">03</span>
+      <span class="trait-name">Loyal</span>
+      <p class="trait-desc">The friend you call at 2am. She answers. She shows up. She stays — always.</p>
+      <div class="trait-bar"></div>
+    </div>
+    <div class="trait-block tilt-card reveal">
+      <span class="trait-num">04</span>
+      <span class="trait-name">Radiant</span>
+      <p class="trait-desc">She walks in and the energy of the room shifts. Not loudly — just inevitably.</p>
+      <div class="trait-bar"></div>
+    </div>
+  </div>
+</section>
+
+<!-- FACTS -->
+<div class="facts-section">
+  <div class="fact-tile tilt-card reveal">
+    <span class="fn" data-count="16">0</span>
+    <h4>Years Young</h4>
+    <p>The wisdom of someone twice her age, the energy of someone half it</p>
+  </div>
+  <div class="fact-tile tilt-card reveal">
+    <span class="fn" data-count="31">0</span>
+    <h4>March Birthday</h4>
+    <p>Born at the crossroads of winter and spring — much like herself</p>
+  </div>
+  <div class="fact-tile tilt-card reveal">
+    <span class="fn" data-count="2">0</span>
+    <h4>Sports Mastered</h4>
+    <p>Badminton and football — two very different courts, one unstoppable player</p>
+  </div>
+  <div class="fact-tile tilt-card reveal">
+    <span class="fn" data-count="inf">&#8734;</span>
+    <h4>Stories Told</h4>
+    <p>The gossip sessions are legendary. The tales? Even better in person.</p>
+  </div>
+</div>
+
+<!-- TIMELINE -->
+<section class="timeline">
+  <span class="section-tag">Her Journey</span>
+  <h2>Chapters of <em class="gold-text italic-text">Anwesha</em></h2>
+  <div class="tl-items">
+    <div class="tl-item reveal">
+      <span class="tl-date">March 31, 2009</span>
+      <h3>The Beginning</h3>
+      <p>Born at the very end of March, Anwesha arrived just as the world was warming up. It seemed fitting — she has been warming up every room since.</p>
+    </div>
+    <div class="tl-item reveal">
+      <span class="tl-date">Early Years</span>
+      <h3>First Serve, First Goal</h3>
+      <p>She discovered badminton and football around the same time and fell hard for both. The competitive streak emerged early — sweet and sharp in equal measure.</p>
+    </div>
+    <div class="tl-item reveal">
+      <span class="tl-date">Growing Up</span>
+      <h3>The Court and The Pitch</h3>
+      <p>As she honed her game, she also built her circle — the kind of friendships that feel less like luck and more like destiny. Loyal, loving, unbreakable.</p>
+    </div>
+    <div class="tl-item reveal">
+      <span class="tl-date">Today · 2025</span>
+      <h3>Sixteen and Brilliant</h3>
+      <p>At 16, she is the athlete, the confidante, the energy in every group photo. Still growing. Still shining. Still absolutely herself.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PHOTO STRIP -->
+<div class="about-photo-strip">
+  <div class="aps-item">
+    <img src="images/img9.jpg" alt="">
+    <div class="aps-caption">At the festival, luminous</div>
+  </div>
+  <div class="aps-item">
+    <img src="images/img5.jpg" alt="">
+    <div class="aps-caption">Dressed to be remembered</div>
+  </div>
+  <div class="aps-item">
+    <img src="images/img1.jpg" alt="">
+    <div class="aps-caption">Always in her element</div>
+  </div>
+</div>
+
+<footer>
+  <span class="footer-name">Anwesha Ghosh</span>
+  <span class="footer-meta">Portfolio · 2025 · Made with lovelove</span>
+  <a href="https://www.instagram.com/itz.anwesha3103" target="_blank">@itz.anwesha3103</a>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
